@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\User;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
     public function index(Request $rq, User $u)
     {
 
-        return view('users.index', ['students' => Student::all()]);
+        return view('users.index', ['students' => User::all()]);
     }
 
     /**
@@ -45,13 +46,13 @@ class UserController extends Controller
             'email' => ["required", "email", "max:255", "min:3"],
             'password' => ["required", "max:255", "min:8", "confirmed"],
         ]);
-        Student::create(array_merge(
+        User::create(array_merge(
             $request->only(
-                ['firstname', 'lastname', 'username', 'email', 'password']
+                ['firstname', 'lastname', 'username', 'email']
             ),
-            ['average_mark' => 85.67]
+            ['password' => Hash::make($request->get('password')), 'name' => $request->get('firstname')]
         ));
-        $request->session()->flash('success','Successfully Saved');
+        $request->session()->flash('success', 'Successfully Saved');
 
         return redirect(route('user.index'));
 

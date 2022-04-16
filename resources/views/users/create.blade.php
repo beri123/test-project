@@ -1,7 +1,6 @@
 @extends('base')
 
 @section('content')
-    <h1>This is the content</h1>
 
     <div class="card row">
         <div class="card-header">

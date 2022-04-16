@@ -1,12 +1,10 @@
 @extends('base')
 
 @section('content')
-    <h1>This is the content</h1>
-
-    <div class="card row">
+  <div class="card row">
         <div class="card-header">
             Student Registartion Form
-            <a href="{{ route('user.create') }}" class="btn btn-primary float-right">Register</a>
+
         </div>
         <div class="card-body mx-auto col-6">
             @if (Session::get('success'))
